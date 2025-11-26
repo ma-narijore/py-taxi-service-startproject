@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from taxi_service.settings import AUTH_USER_MODEL
 
 
 class Car(models.Model):
     model = models.CharField(max_length=100)
-    manufacturer = models.ForeignKey("Manufacturer", on_delete=models.CASCADE)
-    drivers = models.ManyToManyField("Driver")
+    manufacturer = models.ForeignKey("Manufacturer", on_delete=models.CASCADE, related_name="cars")
+    drivers = models.ManyToManyField(AUTH_USER_MODEL, related_name="cars")
 
 
 class Manufacturer(models.Model):
